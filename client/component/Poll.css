@@ -1,0 +1,91 @@
+
+.wave-text span:nth-child(1) {
+    animation-delay: 0s;
+}
+.wave-text spabody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #101010;
+
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+.wave-text span {
+    display: inline-block;
+    font-size: 4rem;
+    animation: wave 2s ease-in-out infinite;
+}
+n:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.wave-text span:nth-child(1) {
+    animation-delay: 0.4s;
+}
+.wave-text span:nth-child(15) {
+    animation-delay: 0.6s;
+}
+
+.wave-text span:nth-child(3) {
+    animation-delay: 0.8s;
+}
+.wave-text span:nth-child(4) {
+    animation-delay: 1s;
+}
+.wave-text span:nth-child(5) {
+    animation-delay: 1.2s;
+}
+.wave-text span:nth-child(6) {
+    animation-delay: 1.4s;
+}
+.wave-text span:nth-child(7) {
+    animation-delay: 1.6s;
+}
+.wave-text span:nth-child(8) {
+    animation-delay: 1.8s;
+}
+.wave-text span:nth-child(9) {
+    animation-delay: 2s;
+}
+.wave-text span:nth-child(10) {
+    animation-delay: 2.2s;
+}
+.wave-text span:nth-child(11) {
+    animation-delay: 2.4s;
+}
+.wave-text span:nth-child(12) {
+    animation-delay: 2.6s;
+}
+.wave-text span:nth-child(13) {
+    animation-delay: 2.8s;
+}
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
+
+
+
+/* Prevent text from breaking into multiple lines */
+.wave-text span {
+    white-space: nowrap; /* Prevent wrapping */
+    display: inline-block; /* Keep spans inline */
+    font-size: 4rem; /* Default font size */
+ 
+}
+
+/* Adjust font size for smaller screens */
+@media (max-width: 576px) { /* Target small screens */
+    .wave-text span {
+        font-size: 2rem; /* Reduce font size to fit smaller screens */
+    }
+}

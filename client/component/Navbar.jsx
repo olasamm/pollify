@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import './Navbar.css';
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -28,8 +28,9 @@ const Navbar = () => {
               <a className="nav-link text-light" href="#">Poll</a>
             </div>
             <div className="mx-5 d-flex flex-column flex-lg-row justify-content-md-start">
-              <button className="btn btn-primary mx-2 my-1 my-lg-0" type="button">SignIn</button>
-              <button className="btn btn-primary my-1 my-lg-0" type="button">SignUp</button>
+            <Link to="/Signin"> <button className="btn btn-primary mx-2 my-1 my-lg-0" type="button">SignIn</button></Link> 
+            <Link to="/Signup">  <button className="btn btn-primary my-1 my-lg-0" type="button">SignUp</button></Link>
+            LINK
           </div>
           </div>
         </div>

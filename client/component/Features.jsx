@@ -3,7 +3,7 @@ import { FaPoll } from "react-icons/fa";
 import { GiVote } from "react-icons/gi";
 import { TbChartPieFilled } from "react-icons/tb";
 import feature from '../src/assets/polls.svg';
-
+import './Features.css';
 
 const Features = () => {
   return (
@@ -14,7 +14,7 @@ const Features = () => {
    <div className="container-fluid text-center mt-5 ">
         <div className="row justify-content-center">
           <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 border-0">
-            <div className="card h-100 shadow-sm opacity-25 bg-light">
+            <div className="card h-100 shadow-sm  bg-light">
               <div className="card-body p-3">
                 <h5 className="card-title" > <FaPoll style={{ color: '#10002c', fontSize: '50px' }}  /></h5>
                 <h5 className="card-title">Create Polls</h5>
@@ -26,7 +26,7 @@ const Features = () => {
           </div>
 
           <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 border-0">
-            <div className="card h-100 shadow-sm opacity-25 bg-light " >
+            <div className="card h-100 shadow-sm  bg-light " >
               <div className="card-body p-3">
                 <h5 className="card-title"><GiVote  style={{ color: '#10002c', fontSize: '50px' }}  /></h5>
                 <h5 className="card-title">Vote Instantly</h5>
@@ -39,7 +39,7 @@ const Features = () => {
 
 
           <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 border-0">
-            <div className="card h-100 shadow-sm opacity-25 bg-light">
+            <div className="card h-100 shadow-sm  bg-light">
               <div className="card-body p-3">
                 <h5 className="card-title"><TbChartPieFilled   style={{ color: '#10002c', fontSize: '50px' }}  /></h5>
                 <h5 className="card-title">See Results</h5>

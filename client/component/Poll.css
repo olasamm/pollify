@@ -75,17 +75,16 @@ n:nth-child(2) {
 
 
 
-/* Prevent text from breaking into multiple lines */
+
 .wave-text span {
-    white-space: nowrap; /* Prevent wrapping */
-    display: inline-block; /* Keep spans inline */
-    font-size: 4rem; /* Default font size */
+    white-space: nowrap; 
+    display: inline-block; 
+    font-size: 4rem; 
  
 }
 
-/* Adjust font size for smaller screens */
-@media (max-width: 576px) { /* Target small screens */
+@media (max-width: 576px) { 
     .wave-text span {
-        font-size: 2rem; /* Reduce font size to fit smaller screens */
+        font-size: 2rem;
     }
 }

@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 // import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Landingpages from '../pages/Landingpages'
+import Signup from '../pages/Signup'
+import Signin from '../pages/Signin'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,6 +14,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Landingpages />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
         </Routes>
     </>
   )

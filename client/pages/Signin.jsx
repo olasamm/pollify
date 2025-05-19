@@ -64,12 +64,12 @@ const Submit = async (e) => {
   </p>
 )}
 
-        <form className="w-75" method='POST' action={Signin}>
+        <form className="w-100" method='POST' action={Signin}>
           <div className="mb-3">
-            <input type="email" className="form-control up rounded-pill text-dark"  placeholder="Email" value={mail} onChange={e => setMail(e.target.value)}/> 
+            <input type="email" className="form-control up rounded-md text-dark"  placeholder="Email" value={mail} onChange={e => setMail(e.target.value)}/> 
           </div>
           <div className="mb-3">
-            <input type="password" className="form-control up rounded-pill text-dark" placeholder="Password"  value={password} onChange={e => setPassword(e.target.value)}/>
+            <input type="password" className="form-control up rounded-md text-dark" placeholder="Password"  value={password} onChange={e => setPassword(e.target.value)}/>
           </div>
           <div className="d-grid">
             <button type="submit"  className="btn sign rounded-pill text-light" onClick={Submit}>SIGN IN</button>

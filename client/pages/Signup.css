@@ -97,22 +97,7 @@
 
 
 
-  /* Ensure the footer stays at the bottom */
-.foo{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .foo {
-    flex-grow: 1;
-  }
 
-
-
-
-
-/* Media query for smaller screens */
 @media (max-width: 768px) {
     footer {
       text-align: center;

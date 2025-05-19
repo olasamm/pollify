@@ -52,7 +52,7 @@ const Submit = async (e) => {
     <div className="row h-100">
 
       <div className="col-md-6 d-flex flex-column justify-content-center align-items-center bg-white text-dark p-5">
-        <h3 className="mb-4">Create Account</h3>
+        <h3 className="mb-4">Login</h3>
 
         {message && (
   <p

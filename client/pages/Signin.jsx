@@ -23,7 +23,7 @@ const Signin = () => {
             <input type="password" className="form-control up rounded-pill" placeholder="Password"  />
           </div>
           <div className="d-grid">
-            <button type="submit"  className="btn sign rounded-pill text-light">SIGN UP</button>
+            <button type="submit"  className="btn sign rounded-pill text-light">SIGN IN</button>
           </div>
         </form>
       </div>

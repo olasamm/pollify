@@ -40,7 +40,7 @@ const Signup = () => {
     const allData = {name, mail, password}
     // console.log(allData);
 
-    const url = "http://localhost:2000/signup";
+    const url = "https://pollify-ugm2.onrender.com/signup";
     axios.post(url, allData)
     .then((res) => {
       console.log(res.data);

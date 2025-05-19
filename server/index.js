@@ -36,18 +36,22 @@ app.post('/signup', async(req, res) => {
 }
 )
 
-app.post('/signin', async(req, res) => {
+app.post('/signin', async (req, res) => {
     try {
         const { mail, password } = req.body;
-        const user = await User.find({ mail, password });
-        if (user)  {
-            res.status(200).json({ message: 'User signed in successfully' });
+        const user = await User.findOne({ mail });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
         }
+        if (user.password !== password) {
+            return res.status(401).json({ error: 'Invalid password' });
+        }
+        res.status(200).json({ message: 'User signed in successfully' });
     } catch (error) {
         console.error('Error signing in:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-})
+});
 
 
 

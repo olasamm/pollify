@@ -7,6 +7,7 @@ import Landingpages from '../pages/Landingpages'
 import Signup from '../pages/Signup'
 import Signin from '../pages/Signin'
 import Error404 from '../pages/Error404'
+import Dashboard from '../pages/Dashboard'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="*" element={<Error404 />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
     </>
   )

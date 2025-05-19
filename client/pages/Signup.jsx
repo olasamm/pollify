@@ -1,12 +1,63 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Signup.css';
 import signup from '../src/assets/signup.svg';
 import Footer from '../component/Footer';
 import Navbar from '../component/Navbar';
+import { useState } from 'react';
+import axios from 'axios';
 
 
 const Signup = () => {
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name || !mail || !password) {
+      setMessage("Please fill all the fields");
+      setMessageType("error");
+      setTimeout(() => setMessage(""), 2000);
+      return;
+    }
+
+    if (password.length < 6) {
+      setMessage("Password must be at least 6 characters long");
+      setMessageType("error");
+      setTimeout(() => setMessage(""), 2000);
+      return;
+    }
+
+
+
+
+    const allData = {name, mail, password}
+    // console.log(allData);
+
+    const url = "http://localhost:2000/signup";
+    axios.post(url, allData)
+    .then((res) => {
+      console.log(res.data);
+      if (res.status === 201) {
+        setMessage("User Created Successfully");
+        setMessageType("success"); 
+        setTimeout(() => navigate("/Signin"), 2000); 
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      setMessage("User Already Exists");
+      setMessageType("error"); 
+      setTimeout(() => setMessage(""), 2000);
+    })
+
+  }
   return (
      <> 
     <Navbar  />
@@ -16,18 +67,27 @@ const Signup = () => {
       <div className="col-md-6 d-flex flex-column justify-content-center align-items-center bg-white text-dark p-5">
         <h3 className="mb-4">Create Account</h3>
 
+        {message && (
+  <p
+    className={`alert mt-3 text-center ${
+      messageType === "success" ? "alert-success" : "alert-danger"
+    }`}
+  >
+    {message}
+  </p>
+)}
         <form className="w-75" method='POST' action={Signup}>
           <div className="mb-3">
-            <input type="text" className="form-control up rounded-pill" placeholder="Name" />
+            <input type="text" className="form-control up rounded-pill text-dark" placeholder="Name" value={name} onChange={e => setName(e.target.value)}/>
           </div>
           <div className="mb-3">
-            <input type="email" className="form-control up rounded-pill" placeholder="Email" /> 
+            <input type="email" className="form-control up rounded-pill text-dark" placeholder="Email" value={mail} onChange={e => setMail(e.target.value)}/> 
           </div>
           <div className="mb-3">
-            <input type="password" className="form-control up rounded-pill" placeholder="Password"  />
+            <input type="password" className="form-control up rounded-pill text-dark" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
           </div>
           <div className="d-grid">
-            <button type="submit"  className="btn sign rounded-pill text-light">SIGN UP</button>
+            <button type="submit"  className="btn sign rounded-pill text-light" onClick={handleSubmit}>SIGN UP</button>
           </div>
         </form>
       </div>

@@ -65,19 +65,19 @@ const Sidebar = () => {
             <Nav.Link href="#" className="text-white mb-2">
               <i className="fas fa-home me-2"></i> Dashboard
             </Nav.Link>
-            <Nav.Link href="#" className="text-white mb-2">
+            <Nav.Link href="mypolls" className="text-white mb-2">
               <i className="fas fa-poll me-2"></i> My Polls
             </Nav.Link>
-            <Nav.Link href="#" className="text-white mb-2">
+            <Nav.Link href="/vote" className="text-white mb-2">
               <i className="fas fa-vote-yea me-2"></i> Vote
             </Nav.Link>
-            <Nav.Link href="#" className="text-white mb-2">
+            <Nav.Link href="/result" className="text-white mb-2">
               <i className="fas fa-chart-bar me-2"></i> Results
             </Nav.Link>
-            <Nav.Link href="#" className="text-white mb-2">
+            <Nav.Link href="/settings" className="text-white mb-2">
               <i className="fas fa-cog me-2"></i> Settings
             </Nav.Link>
-            <Nav.Link href="#" className="text-white">
+            <Nav.Link href="/logout" className="text-white">
               <i className="fas fa-sign-out-alt me-2"></i> Logout
             </Nav.Link>
           </Nav>

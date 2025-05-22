@@ -16,8 +16,10 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     if (!name || !mail || !password) {
@@ -56,8 +58,9 @@ const Signup = () => {
       setMessage("User Already Exists");
       setMessageType("error"); 
       setTimeout(() => setMessage(""), 2000);
-    })
-
+    }).finally(() => {
+      setIsLoading(false);
+  })
   }
   return (
      <> 
@@ -106,7 +109,13 @@ const Signup = () => {
     />
   </div>
   <div className="d-grid">
-    <button type="submit" className="btn sign rounded-pill text-light" onClick={handleSubmit}>REGISTER</button>
+    <button type="submit" className="btn sign rounded-pill text-light" onClick={handleSubmit}>
+      {isLoading ? (
+        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      ) : (
+        <span>REGISTER</span>
+      )}
+      </button>
   </div>
 </form>
       </div>

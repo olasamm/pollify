@@ -12,9 +12,11 @@ const Signin = () => {
   const [message, setMessage] = useState(""); 
   const [messageType, setMessageType] = useState(""); 
   const navigate = useNavigate(); 
+  const [isLoading, setIsLoading] = useState(false);
 
 
 const Submit = async (e) => {
+  setIsLoading(true);
   e.preventDefault();
 
   if (!mail || !password) {
@@ -24,7 +26,7 @@ const Submit = async (e) => {
       return;
   }
 
-  const allData = { mail, password };
+  const allData = { mail, password, };
   const url = "https://pollify-ugm2.onrender.com/signin";
 
   try {
@@ -34,16 +36,17 @@ const Submit = async (e) => {
           setMessageType("success");
           setTimeout(() => navigate("/dashboard"), 2000);
       }
-  } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-          setMessage(error.response.data.error);
-      } else {
-          setMessage("An unexpected error occurred");
-      }
-      setMessageType("error");
-
-}
-};
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.error) {
+            setMessage(error.response.data.error);
+        } else {
+            setMessage("An unexpected error occurred");
+        }
+        setMessageType("error");
+    } finally {
+        setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -72,7 +75,13 @@ const Submit = async (e) => {
             <input type="password" className="form-control up rounded-md text-dark" placeholder="Password"  value={password} onChange={e => setPassword(e.target.value)}/>
           </div>
           <div className="d-grid">
-            <button type="submit"  className="btn sign rounded-pill text-light" onClick={Submit}>LOGIN</button>
+            <button type="submit"  className="btn sign rounded-pill text-light" onClick={Submit}>
+             {isLoading ?(
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+             ):(
+              <span>LOGIN</span>
+            )} 
+               </button>
           </div>
         </form>
       </div>

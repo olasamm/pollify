@@ -30,10 +30,10 @@ const Navbar = () => {
             </div>
             <div className="mx-5 d-flex flex-column flex-lg-row justify-content-md-start">
            <Link to="/Signin">
-            <button className="btn btn-primary  my-1 my-lg-0 w-100 w-lg-auto" type="button">SignIn</button>
+            <button className="btn btn-primary  my-1 my-lg-0 w-100 w-lg-auto" type="button">LOGIN</button>
           </Link> 
           <Link to="/Signup">
-            <button className="btn btn-primary my-1 mx-2 my-lg-0 w-100 w-lg-auto" type="button">SignUp</button>
+            <button className="btn btn-primary my-1 mx-2 my-lg-0 w-100 w-lg-auto" type="button">REGISTER</button>
           </Link>
           </div>
           </div>

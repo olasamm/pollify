@@ -1,0 +1,6 @@
+
+
+
+.offcanvas .btn-close {
+    filter: invert(1); /* Makes the close button white */
+  }

@@ -45,6 +45,7 @@ const Signup = () => {
     .then((res) => {
       console.log(res.data);
       if (res.status === 201) {
+        localStorage.setItem("name", name);
         setMessage("User Created Successfully");
         setMessageType("success"); 
         setTimeout(() => navigate("/Signin"), 2000); 
@@ -105,7 +106,7 @@ const Signup = () => {
     />
   </div>
   <div className="d-grid">
-    <button type="submit" className="btn sign rounded-pill text-light" onClick={handleSubmit}>SIGN UP</button>
+    <button type="submit" className="btn sign rounded-pill text-light" onClick={handleSubmit}>REGISTER</button>
   </div>
 </form>
       </div>
@@ -118,7 +119,7 @@ const Signup = () => {
         <h3 className="text-center">Welcome back to Website</h3>
         <img src={signup} alt="" srcset="" className='w-75'/>
         <p className="mt-3">Already have an account?</p>
-     <Link to="/Signin">  <button className="btn btn-dark rounded-pill px-4"  > SIGN IN</button> </Link>
+     <Link to="/Signin">  <button className="btn btn-dark rounded-pill px-4"  > LOGIN</button> </Link>
       </div>
 
     </div>

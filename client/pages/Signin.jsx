@@ -72,7 +72,7 @@ const Submit = async (e) => {
             <input type="password" className="form-control up rounded-md text-dark" placeholder="Password"  value={password} onChange={e => setPassword(e.target.value)}/>
           </div>
           <div className="d-grid">
-            <button type="submit"  className="btn sign rounded-pill text-light" onClick={Submit}>SIGN IN</button>
+            <button type="submit"  className="btn sign rounded-pill text-light" onClick={Submit}>LOGIN</button>
           </div>
         </form>
       </div>
@@ -85,7 +85,7 @@ const Submit = async (e) => {
         <h3 className="text-center">Welcometo Website</h3>
         <img src={signin} alt="" srcset="" className='w-75'/>
         <p className="mt-3">New here</p>
-       <Link to="/signup"><button className="btn btn-dark rounded-pill px-4">SIGN UP</button></Link> 
+       <Link to="/signup"><button className="btn btn-dark rounded-pill px-4">REGISTER</button></Link> 
       </div>
 
     </div>

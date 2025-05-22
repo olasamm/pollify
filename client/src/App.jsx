@@ -8,6 +8,7 @@ import Signup from '../pages/Signup'
 import Signin from '../pages/Signin'
 import Error404 from '../pages/Error404'
 import Dashboard from '../pages/Dashboard'
+import Vote from '../pages/Vote'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="*" element={<Error404 />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/Vote" element={<Vote />} />
         </Routes>
     </>
   )

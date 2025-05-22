@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Sidebar.css'; 
 import { Nav, Button, Offcanvas } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Sidebar = () => {
   const [show, setShow] = useState(false);
@@ -10,7 +11,6 @@ const Sidebar = () => {
 
   return (
     <>
-   
       <Button
         variant="primary"
         className="d-md-none mb-3"
@@ -20,36 +20,33 @@ const Sidebar = () => {
         <i className="fas fa-bars"></i> 
       </Button>
 
-
-     
       <div
         className="text-white vh-100 p-4 d-none d-md-block shadow position-relative"
         style={{ width: '280px', backgroundColor: 'rgb(2, 2, 27)' }}
       >
         <h3 className="my-5 text-center">Pollify</h3>
         <Nav defaultActiveKey="/dashboard" className="flex-column">
-          <Nav.Link href="#" className="text-white mb-2">
+          <Link to="/dashboard" className="text-white mb-2 nav-link">
             <i className="fas fa-home me-2"></i> Dashboard
-          </Nav.Link>
-          <Nav.Link href="#" className="text-white mb-2">
+          </Link>
+          <Link to="/mypolls" className="text-white mb-2 nav-link">
             <i className="fas fa-poll me-2"></i> My Polls
-          </Nav.Link>
-          <Nav.Link href="/Vote" className="text-white mb-2">
+          </Link>
+          <Link to="/vote" className="text-white mb-2 nav-link">
             <i className="fas fa-vote-yea me-2"></i> Vote
-          </Nav.Link>
-          <Nav.Link href="#" className="text-white mb-2">
+          </Link>
+          <Link to="/results" className="text-white mb-2 nav-link">
             <i className="fas fa-chart-bar me-2"></i> Results
-          </Nav.Link>
-          <Nav.Link href="#" className="text-white mb-2">
+          </Link>
+          <Link to="/settings" className="text-white mb-2 nav-link">
             <i className="fas fa-cog me-2"></i> Settings
-          </Nav.Link>
-          <Nav.Link href="#" className="text-white">
+          </Link>
+          <Link to="/logout" className="text-white nav-link">
             <i className="fas fa-sign-out-alt me-2"></i> Logout
-          </Nav.Link>
+          </Link>
         </Nav>
       </div>
 
-      
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -62,24 +59,24 @@ const Sidebar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav defaultActiveKey="/dashboard" className="flex-column">
-            <Nav.Link href="#" className="text-white mb-2">
+            <Link to="/dashboard" className="text-white mb-2 nav-link">
               <i className="fas fa-home me-2"></i> Dashboard
-            </Nav.Link>
-            <Nav.Link href="mypolls" className="text-white mb-2">
+            </Link>
+            <Link to="/mypolls" className="text-white mb-2 nav-link">
               <i className="fas fa-poll me-2"></i> My Polls
-            </Nav.Link>
-            <Nav.Link href="/vote" className="text-white mb-2">
+            </Link>
+            <Link to="/vote" className="text-white mb-2 nav-link">
               <i className="fas fa-vote-yea me-2"></i> Vote
-            </Nav.Link>
-            <Nav.Link href="/result" className="text-white mb-2">
+            </Link>
+            <Link to="/results" className="text-white mb-2 nav-link">
               <i className="fas fa-chart-bar me-2"></i> Results
-            </Nav.Link>
-            <Nav.Link href="/settings" className="text-white mb-2">
+            </Link>
+            <Link to="/settings" className="text-white mb-2 nav-link">
               <i className="fas fa-cog me-2"></i> Settings
-            </Nav.Link>
-            <Nav.Link href="/logout" className="text-white">
+            </Link>
+            <Link to="/logout" className="text-white nav-link">
               <i className="fas fa-sign-out-alt me-2"></i> Logout
-            </Nav.Link>
+            </Link>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>

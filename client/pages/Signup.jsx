@@ -50,7 +50,7 @@ const Signup = () => {
         localStorage.setItem("name", name);
         setMessage("User Created Successfully");
         setMessageType("success"); 
-        setTimeout(() => navigate("/Signin"), 2000); 
+        setTimeout(() => navigate("/Signin"), 3000); 
       }
     })
     .catch((err) => {

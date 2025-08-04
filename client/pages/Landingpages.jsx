@@ -15,7 +15,7 @@ const Landingpages = () => {
     <Poll />
     <Features />
     <Footer />
-    
+  
     </div>
     </>
   )

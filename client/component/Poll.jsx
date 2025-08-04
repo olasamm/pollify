@@ -27,9 +27,9 @@ const Poll = () => {
               Effortlessly create engaging polls and surveys to gather valuable feedback and insights. Whether you're organizing a project, planning an event, or conducting research, Pollify makes it easy to design and share polls across any platform.
             </p>
             <div className="d-flex justify-content-center justify-content-center">
-              <button type="button" className="btn btn-primary rounded-pill px-4 py-2">
+            <Link to="/signup" >  <button type="button" className="btn btn-primary rounded-pill px-4 py-2">
                 Create Your First Poll
-              </button>
+              </button> </Link>
             </div>
           </div>
 

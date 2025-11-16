@@ -7,7 +7,13 @@ const jwt = require('jsonwebtoken');
 const app = express();
 dotenv.config();
 
-app.use(cors());
+// CORS configuration
+app.use(cors({
+  origin: '*', // Allow all origins in production, or specify your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -20,13 +26,63 @@ const User = require('./Model/userModel');
 const Poll = require('./Model/pollModel');
 const Comment = require('./Model/commentModel');
 
-mongoose.connect(URI)
-  .then(() => {
-    console.log('Connected to MongoDB');
-  })
-  .catch((err) => {
-    console.error('Error connecting to MongoDB:', err);
+// MongoDB connection with better error handling and connection options
+if (!URI) {
+  console.error('MongoDB URI is not defined. Please set URI in environment variables.');
+} else {
+  // Connection options for better reliability
+  const mongooseOptions = {
+    serverSelectionTimeoutMS: 30000, // 30 seconds
+    socketTimeoutMS: 45000, // 45 seconds
+    connectTimeoutMS: 30000, // 30 seconds
+    maxPoolSize: 10, // Maintain up to 10 socket connections
+    minPoolSize: 1, // Maintain at least 1 socket connection
+    maxIdleTimeMS: 30000, // Close connections after 30 seconds of inactivity
+    retryWrites: true,
+    w: 'majority'
+  };
+
+  // Disable mongoose buffering (only if supported)
+  try {
+    mongoose.set('bufferCommands', false);
+  } catch (e) {
+    // Ignore if not supported in this Mongoose version
+  }
+
+  mongoose.connect(URI, mongooseOptions)
+    .then(() => {
+      console.log('✓ Connected to MongoDB successfully');
+    })
+    .catch((err) => {
+      console.error('✗ Error connecting to MongoDB:', err.message);
+      console.error('Please check your MongoDB connection string in environment variables.');
+      console.error('Make sure your MongoDB Atlas IP whitelist includes 0.0.0.0/0 or Render\'s IP addresses.');
+    });
+
+  // Handle connection events
+  mongoose.connection.on('error', (err) => {
+    console.error('MongoDB connection error:', err);
   });
+
+  mongoose.connection.on('disconnected', () => {
+    console.warn('MongoDB disconnected. Attempting to reconnect...');
+  });
+
+  mongoose.connection.on('reconnected', () => {
+    console.log('✓ MongoDB reconnected');
+  });
+}
+
+// Middleware to check MongoDB connection before processing requests
+const checkMongoConnection = (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({ 
+      error: 'Database connection not available. Please try again in a moment.',
+      status: 'service_unavailable'
+    });
+  }
+  next();
+};
 
 // Authentication middleware
 const authenticateToken = (req, res, next) => {
@@ -55,7 +111,7 @@ const requireAdmin = (req, res, next) => {
 };
 
 // User Registration
-app.post('/signup', async (req, res) => {
+app.post('/signup', checkMongoConnection, async (req, res) => {
   try {
     const { name, mail, password, role, adminKey } = req.body;
 
@@ -113,7 +169,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // User Login
-app.post('/signin', async (req, res) => {
+app.post('/signin', checkMongoConnection, async (req, res) => {
   try {
     const { mail, password, role } = req.body;
 
@@ -697,8 +753,29 @@ app.get('/api/stats', authenticateToken, async (req, res) => {
   }
 });
 
+// Health check endpoint
 app.get('/', (req, res) => {
-  res.send('Pollify API is running!');
+  res.json({ 
+    status: 'success',
+    message: 'Pollify API is running!',
+    timestamp: new Date().toISOString(),
+    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+  });
+});
+
+// Health check endpoint for detailed status
+app.get('/health', (req, res) => {
+  const healthStatus = {
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    environment: {
+      nodeVersion: process.version,
+      port: port
+    }
+  };
+  res.json(healthStatus);
 });
 
 app.listen(port, () => {

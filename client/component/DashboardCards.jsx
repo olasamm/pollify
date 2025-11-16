@@ -42,49 +42,49 @@ const DashboardCards = () => {
   }
 
   return (
-    <Row className="mb-4">
-      <Col>
+    <Row className="mb-4 g-3">
+      <Col xs={12} sm={6} md={stats.role === 'admin' ? 3 : 4}>
         <Card bg="primary" text="white">
           <Card.Body className="d-flex justify-content-between align-items-center">
             <div>
-              <Card.Title>Total Polls</Card.Title>
+              <Card.Title className="fs-6">Total Polls</Card.Title>
               <Card.Text className="fs-4 fw-bold">{stats.totalPolls}</Card.Text>
             </div>
-            <i className="bi bi-bar-chart-fill fs-1"></i>
+            <i className="bi bi-bar-chart-fill fs-1 d-none d-sm-block"></i>
           </Card.Body>
         </Card>
       </Col>
-      <Col>
+      <Col xs={12} sm={6} md={stats.role === 'admin' ? 3 : 4}>
         <Card bg="success" text="white">
           <Card.Body className="d-flex justify-content-between align-items-center">
             <div>
-              <Card.Title>Active Polls</Card.Title>
+              <Card.Title className="fs-6">Active Polls</Card.Title>
               <Card.Text className="fs-4 fw-bold">{stats.activePolls}</Card.Text>
             </div>
-            <i className="bi bi-check-circle-fill fs-1"></i>
+            <i className="bi bi-check-circle-fill fs-1 d-none d-sm-block"></i>
           </Card.Body>
         </Card>
       </Col>
-      <Col>
+      <Col xs={12} sm={6} md={stats.role === 'admin' ? 3 : 4}>
         <Card bg="info" text="white">
           <Card.Body className="d-flex justify-content-between align-items-center">
             <div>
-              <Card.Title>Votes Cast</Card.Title>
+              <Card.Title className="fs-6">Votes Cast</Card.Title>
               <Card.Text className="fs-4 fw-bold">{stats.totalVotes}</Card.Text>
             </div>
-            <i className="bi bi-people-fill fs-1"></i>
+            <i className="bi bi-people-fill fs-1 d-none d-sm-block"></i>
           </Card.Body>
         </Card>
       </Col>
       {stats.role === 'admin' && (
-        <Col>
+        <Col xs={12} sm={6} md={3}>
           <Card bg="warning" text="white">
             <Card.Body className="d-flex justify-content-between align-items-center">
               <div>
-                <Card.Title>My Polls</Card.Title>
+                <Card.Title className="fs-6">My Polls</Card.Title>
                 <Card.Text className="fs-4 fw-bold">{stats.userPolls || 0}</Card.Text>
               </div>
-              <i className="bi bi-person-fill fs-1"></i>
+              <i className="bi bi-person-fill fs-1 d-none d-sm-block"></i>
             </Card.Body>
           </Card>
         </Col>

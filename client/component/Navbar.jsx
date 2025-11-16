@@ -9,7 +9,7 @@ const Navbar = () => {
     
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand text-light mx-5 polly" href="#">POLLIFY </a>
+          <a className="navbar-brand text-light mx-lg-5 mx-2 polly" href="#">POLLIFY </a>
           <button
           className="navbar-toggler"
           type="button"
@@ -28,12 +28,12 @@ const Navbar = () => {
               <a className="nav-link text-light" href="#"> Features</a>
               <a className="nav-link text-light" href="#">Poll</a>
             </div>
-            <div className="mx-5 d-flex flex-column flex-lg-row justify-content-md-start">
-           <Link to="/Signin">
-            <button className="btn btn-primary  my-1 my-lg-0 w-100 w-lg-auto" type="button">LOGIN</button>
+            <div className="mx-lg-5 mx-2 d-flex flex-column flex-lg-row justify-content-md-start gap-2">
+           <Link to="/Signin" className="w-100 w-lg-auto">
+            <button className="btn btn-primary my-1 my-lg-0 w-100 w-lg-auto" type="button">LOGIN</button>
           </Link> 
-          <Link to="/Signup">
-            <button className="btn btn-primary my-1 mx-2 my-lg-0 w-100 w-lg-auto" type="button">REGISTER</button>
+          <Link to="/Signup" className="w-100 w-lg-auto">
+            <button className="btn btn-primary my-1 mx-lg-2 mx-0 my-lg-0 w-100 w-lg-auto" type="button">REGISTER</button>
           </Link>
           </div>
           </div>

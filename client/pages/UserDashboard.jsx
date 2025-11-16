@@ -119,14 +119,14 @@ const UserDashboard = () => {
     <>
       <div className="d-flex">
         <Sidebar />
-        <div className="flex-grow-1 p-4">
-          <div className="d-flex justify-content-between align-items-center me-5 my-2">
-            <div>
+        <div className="flex-grow-1 p-3 p-md-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center me-md-5 my-2">
+            <div className="mb-2 mb-md-0">
               <h4 className="mb-0">Voting Dashboard</h4>
               <small className="text-muted">Browse and vote on polls</small>
             </div>
             <div className="d-flex align-items-center">
-              <p className="mb-0 me-3">Hello, {name}!</p>
+              <p className="mb-0 me-2 me-md-3 d-none d-sm-block">Hello, {name}!</p>
               <Button
                 variant="link"
                 className="p-0"
@@ -155,8 +155,8 @@ const UserDashboard = () => {
           </div>
           
           {/* Stats Cards */}
-          <Row className="mb-4">
-            <Col>
+          <Row className="mb-4 g-3">
+            <Col xs={12} sm={6} md={4}>
               <Card bg="primary" text="white">
                 <Card.Body className="d-flex justify-content-between align-items-center">
                   <div>
@@ -167,25 +167,25 @@ const UserDashboard = () => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
+            <Col xs={12} sm={6} md={4}>
               <Card bg="success" text="white">
                 <Card.Body className="d-flex justify-content-between align-items-center">
                   <div>
-                    <Card.Title>Active Polls</Card.Title>
+                    <Card.Title className="fs-6">Active Polls</Card.Title>
                     <Card.Text className="fs-4 fw-bold">{stats.activePolls}</Card.Text>
                   </div>
-                  <i className="bi bi-check-circle-fill fs-1"></i>
+                  <i className="bi bi-check-circle-fill fs-1 d-none d-sm-block"></i>
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
+            <Col xs={12} sm={6} md={4}>
               <Card bg="info" text="white">
                 <Card.Body className="d-flex justify-content-between align-items-center">
                   <div>
-                    <Card.Title>Total Votes</Card.Title>
+                    <Card.Title className="fs-6">Total Votes</Card.Title>
                     <Card.Text className="fs-4 fw-bold">{stats.totalVotes}</Card.Text>
                   </div>
-                  <i className="bi bi-people-fill fs-1"></i>
+                  <i className="bi bi-people-fill fs-1 d-none d-sm-block"></i>
                 </Card.Body>
               </Card>
             </Col>

@@ -140,14 +140,14 @@ const AdminDashboard = () => {
     <>
       <div className="d-flex">
         <Sidebar />
-        <div className="flex-grow-1 p-4">
-          <div className="d-flex justify-content-between align-items-center me-5 my-2">
-            <div>
+        <div className="flex-grow-1 p-3 p-md-4">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center me-md-5 my-2">
+            <div className="mb-2 mb-md-0">
               <h4 className="mb-0">Admin Dashboard</h4>
               <small className="text-muted">Manage polls, votes, and results</small>
             </div>
             <div className="d-flex align-items-center">
-              <p className="mb-0 me-3">Hello, {name}!</p>
+              <p className="mb-0 me-2 me-md-3 d-none d-sm-block">Hello, {name}!</p>
               <Button
                 variant="link"
                 className="p-0"
@@ -192,17 +192,24 @@ const AdminDashboard = () => {
           )}
           
           <Card className="mt-4">
-            <Card.Header className="d-flex justify-content-between align-items-center">
+            <Card.Header className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
               <h5 className="mb-0">Recent Polls with Results</h5>
-              <div className="d-flex gap-2">
+              <div className="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto">
                 <Button 
                   variant="danger" 
+                  size="sm"
+                  className="w-100 w-sm-auto"
                   onClick={handleClearAllPollsClick}
                   disabled={polls.length === 0}
                 >
                   <i className="bi bi-trash me-1"></i> Clear All Polls
                 </Button>
-                <Button variant="primary" onClick={() => navigate('/create-poll')}>
+                <Button 
+                  variant="primary" 
+                  size="sm"
+                  className="w-100 w-sm-auto"
+                  onClick={() => navigate('/create-poll')}
+                >
                   <i className="bi bi-plus-circle me-1"></i> Create New Poll
                 </Button>
               </div>
@@ -233,55 +240,63 @@ const AdminDashboard = () => {
                     </div>
                   ) : (
                     <>
-                      <Table striped bordered hover responsive>
-                        <thead>
-                          <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Created By</th>
-                            <th>Created Date</th>
-                            <th>Status</th>
-                            <th>Expiration</th>
-                            <th>Total Votes</th>
-                            <th>Voters Count</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
+                      <div className="table-responsive">
+                        <Table striped bordered hover>
+                          <thead>
+                            <tr>
+                              <th>Title</th>
+                              <th className="d-none d-md-table-cell">Category</th>
+                              <th className="d-none d-lg-table-cell">Created By</th>
+                              <th className="d-none d-md-table-cell">Created Date</th>
+                              <th>Status</th>
+                              <th className="d-none d-lg-table-cell">Expiration</th>
+                              <th className="d-none d-sm-table-cell">Total Votes</th>
+                              <th className="d-none d-xl-table-cell">Voters Count</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
                         <tbody>
                           {filteredPolls.slice(0, 10).map((poll) => (
                             <tr key={poll._id}>
-                              <td>{poll.title}</td>
                               <td>
+                                <div className="fw-bold">{poll.title}</div>
+                                <div className="d-md-none small text-muted">
+                                  <CategoryBadge category={poll.category} /> | {formatDate(poll.createdAt)}
+                                </div>
+                              </td>
+                              <td className="d-none d-md-table-cell">
                                 <CategoryBadge category={poll.category} />
                               </td>
-                              <td>{poll.createdByName || 'Unknown'}</td>
-                              <td>{formatDate(poll.createdAt)}</td>
+                              <td className="d-none d-lg-table-cell">{poll.createdByName || 'Unknown'}</td>
+                              <td className="d-none d-md-table-cell">{formatDate(poll.createdAt)}</td>
                               <td>
                                 <Badge bg={poll.status === 'open' ? 'success' : 'secondary'}>
                                   {poll.status === 'open' ? 'Open' : 'Closed'}
                                 </Badge>
                               </td>
-                              <td>
+                              <td className="d-none d-lg-table-cell">
                                 {poll.expiresAt ? (
                                   <CountdownTimer expiresAt={poll.expiresAt} />
                                 ) : (
                                   <Badge bg="secondary">No expiration</Badge>
                                 )}
                               </td>
-                              <td>{getTotalVotes(poll)}</td>
-                              <td>{poll.voters?.length || 0}</td>
+                              <td className="d-none d-sm-table-cell">{getTotalVotes(poll)}</td>
+                              <td className="d-none d-xl-table-cell">{poll.voters?.length || 0}</td>
                               <td>
-                                <div className="d-flex gap-2">
+                                <div className="d-flex flex-column flex-sm-row gap-1 gap-sm-2">
                                   <Button
                                     variant="outline-info"
                                     size="sm"
+                                    className="w-100 w-sm-auto"
                                     onClick={() => handleViewResults(poll._id)}
                                   >
-                                    View Results
+                                    <span className="d-none d-sm-inline">View </span>Results
                                   </Button>
                                   <Button
                                     variant="outline-warning"
                                     size="sm"
+                                    className="w-100 w-sm-auto"
                                     onClick={() => handleEditPoll(poll._id)}
                                   >
                                     Edit
@@ -291,7 +306,8 @@ const AdminDashboard = () => {
                             </tr>
                           ))}
                         </tbody>
-                      </Table>
+                        </Table>
+                      </div>
                       {filteredPolls.length > 10 && (
                         <div className="text-center mt-3">
                           <small className="text-muted">Showing 10 of {filteredPolls.length} polls</small>
@@ -309,16 +325,16 @@ const AdminDashboard = () => {
       {/* Clear All Polls Confirmation Modal */}
       <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
         <Modal.Header closeButton className="bg-danger text-white">
-          <Modal.Title>Confirm Delete All Polls</Modal.Title>
+          <Modal.Title className="fs-6 fs-md-5">Confirm Delete All Polls</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="p-3 p-md-4">
           <Card className="border-danger">
-            <Card.Body>
-              <Card.Title className="text-danger">
+            <Card.Body className="p-3">
+              <Card.Title className="text-danger fs-6">
                 <i className="bi bi-exclamation-triangle-fill me-2"></i>
                 Warning!
               </Card.Title>
-              <Card.Text>
+              <Card.Text className="small">
                 Are you sure you want to delete <strong>ALL {polls.length} polls</strong>?
                 <br /><br />
                 This action <strong>cannot be undone</strong> and will permanently delete:
@@ -331,11 +347,19 @@ const AdminDashboard = () => {
             </Card.Body>
           </Card>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+        <Modal.Footer className="d-flex flex-column flex-sm-row gap-2">
+          <Button 
+            variant="secondary" 
+            className="w-100 w-sm-auto order-2 order-sm-1"
+            onClick={() => setShowConfirmModal(false)}
+          >
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleClearAllPollsConfirm}>
+          <Button 
+            variant="danger" 
+            className="w-100 w-sm-auto order-1 order-sm-2"
+            onClick={handleClearAllPollsConfirm}
+          >
             <i className="bi bi-trash me-1"></i>
             Yes, Delete All Polls
           </Button>

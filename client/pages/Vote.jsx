@@ -150,27 +150,27 @@ const Vote = () => {
   return (
     <div className="d-flex vh-100">
       <Sidebar />
-      <div className="flex-grow-1 p-4 bg-light">
-        <div className="d-flex justify-content-between align-items-center my-4">
-          <h4 className="mb-0">Vote on a Poll</h4>
-          <Button variant="outline-secondary" onClick={() => navigate('/dashboard')}>
+      <div className="flex-grow-1 p-3 p-md-4 bg-light">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center my-3 my-md-4">
+          <h4 className="mb-2 mb-md-0">Vote on a Poll</h4>
+          <Button variant="outline-secondary" size="sm" className="w-100 w-md-auto" onClick={() => navigate('/dashboard')}>
             Back to Dashboard
           </Button>
         </div>
 
         <Container fluid>
           <Row className="justify-content-center">
-            <Col xs={12} md={8} lg={6}>
+            <Col xs={12} md={10} lg={8}>
               <Card className="shadow">
-                <Card.Body className="p-4">
-                  <div className="d-flex justify-content-between align-items-start mb-3">
-                    <div className="flex-grow-1">
+                <Card.Body className="p-3 p-md-4">
+                  <div className="d-flex flex-column flex-md-row justify-content-between align-items-start mb-3">
+                    <div className="flex-grow-1 mb-2 mb-md-0">
                       <Card.Title className="mb-2">{poll.title}</Card.Title>
                       <div className="mb-2">
                         <CategoryBadge category={poll.category} />
                       </div>
                     </div>
-                    <div className="d-flex align-items-center gap-2">
+                    <div className="d-flex align-items-center gap-2 w-100 w-md-auto">
                       <Button
                         variant="outline-info"
                         size="sm"

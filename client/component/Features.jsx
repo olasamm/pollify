@@ -60,14 +60,14 @@ const Features = () => {
 
     <div className="col-12 col-md-6">
       <h1 className="text-light">Create Polls</h1>
-      <p className="mx-5 my-3 text-light fs-6 fs-md-5 text-md-start text-center">
+      <p className="mx-lg-5 mx-2 my-3 text-light fs-6 fs-md-5 text-md-start text-center">
         Set up polls quickly and easily with our user-friendly interface. Whether you're organizing a project, planning an event, or conducting research, Pollify makes it easy to design and share polls across any platform.  </p>
       <Link to="/signup">
         <button className="btn btn-primary btn-lg mt-3">Create Polls</button>
       </Link>
     </div>
 
-    <div className="col-12 col-md-6">
+    <div className="col-12 col-md-6 text-center">
       <img
         src={feature}
         alt="Poll illustration"

@@ -28,7 +28,10 @@ const Comment = require('./Model/commentModel');
 
 // MongoDB connection with better error handling and connection options
 if (!URI) {
-  console.error('MongoDB URI is not defined. Please set URI in environment variables.');
+  console.error('❌ MongoDB URI is not defined. Please set URI in environment variables.');
+  console.error('   Go to Render Dashboard → Your Service → Environment → Add Environment Variable');
+  console.error('   Variable name: URI');
+  console.error('   Variable value: mongodb+srv://username:password@cluster.mongodb.net/database');
 } else {
   // Connection options for better reliability
   const mongooseOptions = {
@@ -91,6 +94,13 @@ if (!URI) {
 // Always allow requests through - Mongoose will handle connection errors in route handlers
 // This prevents blocking requests while MongoDB is connecting
 const checkMongoConnection = (req, res, next) => {
+  // Check if URI is configured
+  if (!URI) {
+    return res.status(503).json({ 
+      error: 'Database not configured. MongoDB URI environment variable is not set.',
+      details: 'Please configure the URI environment variable on your hosting platform.'
+    });
+  }
   // Always proceed - Mongoose will handle connection state and errors
   // Route handlers will catch and return appropriate errors if DB is unavailable
   next();

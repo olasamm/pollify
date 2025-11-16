@@ -160,10 +160,10 @@ const UserDashboard = () => {
               <Card bg="primary" text="white">
                 <Card.Body className="d-flex justify-content-between align-items-center">
                   <div>
-                    <Card.Title>Total Polls</Card.Title>
+                    <Card.Title className="fs-6">Total Polls</Card.Title>
                     <Card.Text className="fs-4 fw-bold">{stats.totalPolls}</Card.Text>
                   </div>
-                  <i className="bi bi-bar-chart-fill fs-1"></i>
+                  <i className="bi bi-bar-chart-fill fs-1 d-none d-sm-block"></i>
                 </Card.Body>
               </Card>
             </Col>
@@ -215,58 +215,66 @@ const UserDashboard = () => {
                       </p>
                     </div>
                   ) : (
-                    <Table striped bordered hover responsive>
-                      <thead>
-                        <tr>
-                          <th>Title</th>
-                          <th>Category</th>
-                          <th>Description</th>
-                          <th>Created Date</th>
-                          <th>Status</th>
-                          <th>Expiration</th>
-                          <th>Total Votes</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {filteredPolls.map((poll) => {
-                          const hasVoted = checkIfVoted(poll);
-                          return (
-                            <tr key={poll._id}>
-                              <td>{poll.title}</td>
-                              <td>
-                                <CategoryBadge category={poll.category} />
-                              </td>
-                              <td>{poll.description || 'No description'}</td>
-                              <td>{formatDate(poll.createdAt)}</td>
-                              <td>
-                                <Badge bg={poll.status === 'open' ? 'success' : 'secondary'}>
-                                  {poll.status === 'open' ? 'Open' : 'Closed'}
-                                </Badge>
-                              </td>
-                              <td>
-                                {poll.expiresAt ? (
-                                  <CountdownTimer expiresAt={poll.expiresAt} />
-                                ) : (
-                                  <Badge bg="secondary">No expiration</Badge>
-                                )}
-                              </td>
-                              <td>{getTotalVotes(poll)}</td>
-                              <td>
-                                <Button
-                                  variant={hasVoted ? "outline-secondary" : "primary"}
-                                  size="sm"
-                                  onClick={() => navigate(`/vote?id=${poll._id}`)}
-                                  disabled={poll.status === 'closed' || hasVoted}
-                                >
-                                  {hasVoted ? 'Already Voted' : poll.status === 'open' ? 'Vote Now' : 'Closed'}
-                                </Button>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </Table>
+                    <div className="table-responsive">
+                      <Table striped bordered hover>
+                        <thead>
+                          <tr>
+                            <th>Title</th>
+                            <th className="d-none d-md-table-cell">Category</th>
+                            <th className="d-none d-lg-table-cell">Description</th>
+                            <th className="d-none d-md-table-cell">Created Date</th>
+                            <th>Status</th>
+                            <th className="d-none d-lg-table-cell">Expiration</th>
+                            <th className="d-none d-sm-table-cell">Total Votes</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredPolls.map((poll) => {
+                            const hasVoted = checkIfVoted(poll);
+                            return (
+                              <tr key={poll._id}>
+                                <td>
+                                  <div className="fw-bold">{poll.title}</div>
+                                  <div className="d-md-none small text-muted">
+                                    <CategoryBadge category={poll.category} /> | {formatDate(poll.createdAt)}
+                                  </div>
+                                </td>
+                                <td className="d-none d-md-table-cell">
+                                  <CategoryBadge category={poll.category} />
+                                </td>
+                                <td className="d-none d-lg-table-cell">{poll.description || 'No description'}</td>
+                                <td className="d-none d-md-table-cell">{formatDate(poll.createdAt)}</td>
+                                <td>
+                                  <Badge bg={poll.status === 'open' ? 'success' : 'secondary'}>
+                                    {poll.status === 'open' ? 'Open' : 'Closed'}
+                                  </Badge>
+                                </td>
+                                <td className="d-none d-lg-table-cell">
+                                  {poll.expiresAt ? (
+                                    <CountdownTimer expiresAt={poll.expiresAt} />
+                                  ) : (
+                                    <Badge bg="secondary">No expiration</Badge>
+                                  )}
+                                </td>
+                                <td className="d-none d-sm-table-cell">{getTotalVotes(poll)}</td>
+                                <td>
+                                  <Button
+                                    variant={hasVoted ? "outline-secondary" : "primary"}
+                                    size="sm"
+                                    className="w-100 w-sm-auto"
+                                    onClick={() => navigate(`/vote?id=${poll._id}`)}
+                                    disabled={poll.status === 'closed' || hasVoted}
+                                  >
+                                    {hasVoted ? 'Already Voted' : poll.status === 'open' ? 'Vote Now' : 'Closed'}
+                                  </Button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </Table>
+                    </div>
                   )}
                 </>
               )}

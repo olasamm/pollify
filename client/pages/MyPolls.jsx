@@ -105,10 +105,15 @@ const MyPolls = () => {
   return (
     <div className="d-flex vh-100">
       <Sidebar />
-      <div className="flex-grow-1 p-4 bg-light">
-        <div className="d-flex justify-content-between align-items-center my-4">
+      <div className="flex-grow-1 p-3 p-md-4 bg-light">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center my-3 my-md-4 gap-2">
           <h4 className="mb-0">My Polls</h4>
-          <Button variant="primary" onClick={() => navigate('/create-poll')}>
+          <Button 
+            variant="primary" 
+            size="sm"
+            className="w-100 w-md-auto"
+            onClick={() => navigate('/create-poll')}
+          >
             <i className="bi bi-plus-circle me-1"></i> Create New Poll
           </Button>
         </div>
@@ -140,75 +145,93 @@ const MyPolls = () => {
             </Card.Body>
           </Card>
         ) : (
-          <Table striped bordered hover responsive>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Created Date</th>
-                <th>Status</th>
-                <th>Total Votes</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {polls.map((poll) => (
-                <tr key={poll._id}>
-                  <td>{poll.title}</td>
-                  <td>
-                    <CategoryBadge category={poll.category} />
-                  </td>
-                  <td>{formatDate(poll.createdAt)}</td>
-                  <td>
-                    <Badge bg={poll.status === 'open' ? 'success' : 'secondary'}>
-                      {poll.status === 'open' ? 'Open' : 'Closed'}
-                    </Badge>
-                  </td>
-                  <td>{getTotalVotes(poll)}</td>
-                  <td>
-                    <div className="d-flex gap-2">
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        onClick={() => navigate(`/vote?id=${poll._id}`)}
-                      >
-                        View
-                      </Button>
-                      <Button
-                        variant={poll.status === 'open' ? 'outline-warning' : 'outline-success'}
-                        size="sm"
-                        onClick={() => handleToggleStatus(poll)}
-                      >
-                        {poll.status === 'open' ? 'Close' : 'Open'}
-                      </Button>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        onClick={() => handleDeleteClick(poll)}
-                      >
-                        Delete
-                      </Button>
-                    </div>
-                  </td>
+          <div className="table-responsive">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th className="d-none d-md-table-cell">Category</th>
+                  <th className="d-none d-lg-table-cell">Created Date</th>
+                  <th>Status</th>
+                  <th className="d-none d-sm-table-cell">Total Votes</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {polls.map((poll) => (
+                  <tr key={poll._id}>
+                    <td>
+                      <div className="fw-bold">{poll.title}</div>
+                      <div className="d-md-none small text-muted">
+                        <CategoryBadge category={poll.category} /> | {formatDate(poll.createdAt)}
+                      </div>
+                    </td>
+                    <td className="d-none d-md-table-cell">
+                      <CategoryBadge category={poll.category} />
+                    </td>
+                    <td className="d-none d-lg-table-cell">{formatDate(poll.createdAt)}</td>
+                    <td>
+                      <Badge bg={poll.status === 'open' ? 'success' : 'secondary'}>
+                        {poll.status === 'open' ? 'Open' : 'Closed'}
+                      </Badge>
+                    </td>
+                    <td className="d-none d-sm-table-cell">{getTotalVotes(poll)}</td>
+                    <td>
+                      <div className="d-flex flex-column flex-sm-row gap-1 gap-sm-2">
+                        <Button
+                          variant="outline-primary"
+                          size="sm"
+                          className="w-100 w-sm-auto"
+                          onClick={() => navigate(`/vote?id=${poll._id}`)}
+                        >
+                          View
+                        </Button>
+                        <Button
+                          variant={poll.status === 'open' ? 'outline-warning' : 'outline-success'}
+                          size="sm"
+                          className="w-100 w-sm-auto"
+                          onClick={() => handleToggleStatus(poll)}
+                        >
+                          {poll.status === 'open' ? 'Close' : 'Open'}
+                        </Button>
+                        <Button
+                          variant="outline-danger"
+                          size="sm"
+                          className="w-100 w-sm-auto"
+                          onClick={() => handleDeleteClick(poll)}
+                        >
+                          Delete
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         )}
 
         {/* Delete Confirmation Modal */}
-        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Confirm Delete</Modal.Title>
+            <Modal.Title className="fs-6 fs-md-5">Confirm Delete</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            Are you sure you want to delete the poll "{pollToDelete?.title}"? This action cannot be undone.
+          <Modal.Body className="p-3 p-md-4">
+            Are you sure you want to delete the poll <strong>"{pollToDelete?.title}"</strong>? This action cannot be undone.
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+          <Modal.Footer className="d-flex flex-column flex-sm-row gap-2">
+            <Button 
+              variant="secondary" 
+              className="w-100 w-sm-auto order-2 order-sm-1"
+              onClick={() => setShowDeleteModal(false)}
+            >
               Cancel
             </Button>
-            <Button variant="danger" onClick={handleDeleteConfirm}>
+            <Button 
+              variant="danger" 
+              className="w-100 w-sm-auto order-1 order-sm-2"
+              onClick={handleDeleteConfirm}
+            >
               Delete
             </Button>
           </Modal.Footer>

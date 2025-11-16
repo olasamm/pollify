@@ -9,7 +9,7 @@ const SharePoll = ({ poll, show, onClose }) => {
   // Generate shareable link
   const getShareableLink = () => {
     if (!poll) return '';
-    const baseUrl = window.location.origin;
+    const baseUrl = 'https://pollify-tau.vercel.app';
     return `${baseUrl}/vote?id=${poll._id}`;
   };
 

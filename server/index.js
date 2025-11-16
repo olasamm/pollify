@@ -49,6 +49,7 @@ if (!URI) {
     // Ignore if not supported in this Mongoose version
   }
 
+  // Connect to MongoDB
   mongoose.connect(URI, mongooseOptions)
     .then(() => {
       console.log('✓ Connected to MongoDB successfully');
@@ -57,6 +58,7 @@ if (!URI) {
       console.error('✗ Error connecting to MongoDB:', err.message);
       console.error('Please check your MongoDB connection string in environment variables.');
       console.error('Make sure your MongoDB Atlas IP whitelist includes 0.0.0.0/0 or Render\'s IP addresses.');
+      // Don't exit - let the server start and retry on next request
     });
 
   // Handle connection events
@@ -66,21 +68,38 @@ if (!URI) {
 
   mongoose.connection.on('disconnected', () => {
     console.warn('MongoDB disconnected. Attempting to reconnect...');
+    // Auto-reconnect after a delay
+    setTimeout(() => {
+      if (mongoose.connection.readyState === 0 && URI) {
+        mongoose.connect(URI, mongooseOptions).catch(err => {
+          console.error('Reconnection attempt failed:', err.message);
+        });
+      }
+    }, 5000);
   });
 
   mongoose.connection.on('reconnected', () => {
     console.log('✓ MongoDB reconnected');
   });
+
+  mongoose.connection.on('connecting', () => {
+    console.log('🔄 Connecting to MongoDB...');
+  });
 }
 
 // Middleware to check MongoDB connection before processing requests
+// readyState: 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
 const checkMongoConnection = (req, res, next) => {
-  if (mongoose.connection.readyState !== 1) {
+  const readyState = mongoose.connection.readyState;
+  // Allow if connected (1) or connecting (2), block only if disconnected (0) or disconnecting (3)
+  if (readyState === 0 || readyState === 3) {
     return res.status(503).json({ 
       error: 'Database connection not available. Please try again in a moment.',
-      status: 'service_unavailable'
+      status: 'service_unavailable',
+      readyState: readyState
     });
   }
+  // If connecting (2), proceed and let the actual query handle any timing issues
   next();
 };
 
@@ -778,6 +797,17 @@ app.get('/health', (req, res) => {
   res.json(healthStatus);
 });
 
+// Start server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  if (URI) {
+    const readyState = mongoose.connection.readyState;
+    const states = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+    console.log(`MongoDB connection state: ${states[readyState]} (${readyState})`);
+    if (readyState === 0) {
+      console.log('⚠️  Warning: MongoDB is not connected. The connection will be attempted on first request.');
+    }
+  } else {
+    console.log('⚠️  Warning: MongoDB URI not set. Database features will not work.');
+  }
 });

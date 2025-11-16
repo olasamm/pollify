@@ -88,18 +88,11 @@ if (!URI) {
 }
 
 // Middleware to check MongoDB connection before processing requests
-// readyState: 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+// Always allow requests through - Mongoose will handle connection errors in route handlers
+// This prevents blocking requests while MongoDB is connecting
 const checkMongoConnection = (req, res, next) => {
-  const readyState = mongoose.connection.readyState;
-  // Allow if connected (1) or connecting (2), block only if disconnected (0) or disconnecting (3)
-  if (readyState === 0 || readyState === 3) {
-    return res.status(503).json({ 
-      error: 'Database connection not available. Please try again in a moment.',
-      status: 'service_unavailable',
-      readyState: readyState
-    });
-  }
-  // If connecting (2), proceed and let the actual query handle any timing issues
+  // Always proceed - Mongoose will handle connection state and errors
+  // Route handlers will catch and return appropriate errors if DB is unavailable
   next();
 };
 
@@ -183,6 +176,15 @@ app.post('/signup', checkMongoConnection, async (req, res) => {
     });
   } catch (error) {
     console.error('Signup error:', error);
+    
+    // Check if it's a MongoDB connection error
+    if (error.name === 'MongooseError' || error.name === 'MongoServerError' || error.message?.includes('buffering')) {
+      return res.status(503).json({ 
+        error: 'Database connection unavailable. Please try again in a moment.',
+        details: 'The database is currently connecting or unavailable.'
+      });
+    }
+    
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -229,6 +231,15 @@ app.post('/signin', checkMongoConnection, async (req, res) => {
     });
   } catch (error) {
     console.error('Signin error:', error);
+    
+    // Check if it's a MongoDB connection error
+    if (error.name === 'MongooseError' || error.name === 'MongoServerError' || error.message?.includes('buffering')) {
+      return res.status(503).json({ 
+        error: 'Database connection unavailable. Please try again in a moment.',
+        details: 'The database is currently connecting or unavailable.'
+      });
+    }
+    
     res.status(500).json({ error: 'Internal server error' });
   }
 });

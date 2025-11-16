@@ -1,13 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Sidebar.css'; 
 import { Nav, Button, Offcanvas } from 'react-bootstrap';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Sidebar = () => {
   const [show, setShow] = useState(false);
+  const [role, setRole] = useState('user');
+
+  useEffect(() => {
+    const userRole = localStorage.getItem('role') || 'user';
+    setRole(userRole);
+  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // Admin navigation items
+  const adminNavItems = (
+    <>
+      <Link to="/dashboard" className="text-white mb-2 nav-link">
+        <i className="fas fa-home me-2"></i> Dashboard
+      </Link>
+      <Link to="/create-poll" className="text-white mb-2 nav-link">
+        <i className="fas fa-plus-circle me-2"></i> Create Poll
+      </Link>
+      <Link to="/mypolls" className="text-white mb-2 nav-link">
+        <i className="fas fa-poll me-2"></i> My Polls
+      </Link>
+      <Link to="/dashboard" className="text-white mb-2 nav-link">
+        <i className="fas fa-chart-bar me-2"></i> View Results
+      </Link>
+      <Link to="/profile" className="text-white mb-2 nav-link">
+        <i className="fas fa-user me-2"></i> Profile
+      </Link>
+      <Link to="/logout" className="text-white nav-link">
+        <i className="fas fa-sign-out-alt me-2"></i> Logout
+      </Link>
+    </>
+  );
+
+  // User navigation items
+  const userNavItems = (
+    <>
+      <Link to="/dashboard" className="text-white mb-2 nav-link">
+        <i className="fas fa-home me-2"></i> Dashboard
+      </Link>
+      <Link to="/vote" className="text-white mb-2 nav-link">
+        <i className="fas fa-vote-yea me-2"></i> Vote
+      </Link>
+      <Link to="/profile" className="text-white mb-2 nav-link">
+        <i className="fas fa-user me-2"></i> Profile
+      </Link>
+      <Link to="/logout" className="text-white nav-link">
+        <i className="fas fa-sign-out-alt me-2"></i> Logout
+      </Link>
+    </>
+  );
 
   return (
     <>
@@ -26,24 +74,7 @@ const Sidebar = () => {
       >
         <h3 className="my-5 text-center">Pollify</h3>
         <Nav defaultActiveKey="/dashboard" className="flex-column">
-          <Link to="/dashboard" className="text-white mb-2 nav-link">
-            <i className="fas fa-home me-2"></i> Dashboard
-          </Link>
-          <Link to="/mypolls" className="text-white mb-2 nav-link">
-            <i className="fas fa-poll me-2"></i> My Polls
-          </Link>
-          <Link to="/vote" className="text-white mb-2 nav-link">
-            <i className="fas fa-vote-yea me-2"></i> Vote
-          </Link>
-          <Link to="/results" className="text-white mb-2 nav-link">
-            <i className="fas fa-chart-bar me-2"></i> Results
-          </Link>
-          <Link to="/settings" className="text-white mb-2 nav-link">
-            <i className="fas fa-cog me-2"></i> Settings
-          </Link>
-          <Link to="/logout" className="text-white nav-link">
-            <i className="fas fa-sign-out-alt me-2"></i> Logout
-          </Link>
+          {role === 'admin' ? adminNavItems : userNavItems}
         </Nav>
       </div>
 
@@ -59,24 +90,7 @@ const Sidebar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav defaultActiveKey="/dashboard" className="flex-column">
-            <Link to="/dashboard" className="text-white mb-2 nav-link">
-              <i className="fas fa-home me-2"></i> Dashboard
-            </Link>
-            <Link to="/mypolls" className="text-white mb-2 nav-link">
-              <i className="fas fa-poll me-2"></i> My Polls
-            </Link>
-            <Link to="/vote" className="text-white mb-2 nav-link">
-              <i className="fas fa-vote-yea me-2"></i> Vote
-            </Link>
-            <Link to="/results" className="text-white mb-2 nav-link">
-              <i className="fas fa-chart-bar me-2"></i> Results
-            </Link>
-            <Link to="/settings" className="text-white mb-2 nav-link">
-              <i className="fas fa-cog me-2"></i> Settings
-            </Link>
-            <Link to="/logout" className="text-white nav-link">
-              <i className="fas fa-sign-out-alt me-2"></i> Logout
-            </Link>
+            {role === 'admin' ? adminNavItems : userNavItems}
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>

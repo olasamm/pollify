@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const userSchema = require('../Schemas/userSchemas');
 
-const user = mongoose.model('polls', userSchema)
+const User = mongoose.model('User', userSchema);
 
-
-module.exports = user;
+module.exports = User;

@@ -6,16 +6,17 @@ const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     const logoutTimer = setTimeout(() => {
-      
+      // Clear all user data
       localStorage.removeItem('name');
       localStorage.removeItem('avatar');
-      localStorage.removeItem('token'); 
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      localStorage.removeItem('role');
 
       // Redirect to the login page
       navigate('/signin');
-    }, 2000); 
+    }, 1000); 
 
     return () => clearTimeout(logoutTimer); 
   }, [navigate]);

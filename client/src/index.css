@@ -1,0 +1,123 @@
+/* Bootstrap Primary Color Override */
+:root {
+  --bs-primary: #02021b;
+  --bs-primary-rgb: 2, 2, 27;
+  --bs-primary-bg-subtle: #02021b;
+  --bs-primary-text-emphasis: #02021b;
+  --bs-primary-border-subtle: #02021b;
+}
+
+/* Override Bootstrap primary color classes */
+.btn-primary {
+  background-color: #02021b !important;
+  border-color: #02021b !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #03032a !important;
+  border-color: #03032a !important;
+  color: #fff !important;
+}
+
+.btn-primary:disabled {
+  background-color: #02021b !important;
+  border-color: #02021b !important;
+  opacity: 0.65;
+}
+
+.btn-outline-primary {
+  color: #02021b !important;
+  border-color: #02021b !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color: #02021b !important;
+  border-color: #02021b !important;
+  color: #fff !important;
+}
+
+.bg-primary {
+  background-color: #02021b !important;
+}
+
+.text-primary {
+  color: #02021b !important;
+}
+
+.border-primary {
+  border-color: #02021b !important;
+}
+
+/* Link primary color */
+a.text-primary,
+a.text-primary:hover,
+a.text-primary:focus {
+  color: #02021b !important;
+}
+
+/* Badge primary */
+.badge.bg-primary {
+  background-color: #02021b !important;
+}
+
+/* Progress bar primary */
+.progress-bar {
+  background-color: #02021b !important;
+}
+
+/* Alert primary */
+.alert-primary {
+  background-color: #02021b !important;
+  border-color: #02021b !important;
+  color: #fff !important;
+}
+
+/* Form controls focus */
+.form-control:focus,
+.form-select:focus {
+  border-color: #02021b !important;
+  box-shadow: 0 0 0 0.25rem rgba(2, 2, 27, 0.25) !important;
+}
+
+/* Pagination primary */
+.page-link {
+  color: #02021b !important;
+}
+
+.page-link:hover {
+  color: #02021b !important;
+}
+
+.page-item.active .page-link {
+  background-color: #02021b !important;
+  border-color: #02021b !important;
+}
+
+/* Dropdown primary */
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #02021b !important;
+}
+
+/* Nav tabs primary */
+.nav-tabs .nav-link.active {
+  color: #02021b !important;
+  border-color: #02021b #02021b transparent !important;
+}
+
+.nav-tabs .nav-link:hover {
+  border-color: #02021b !important;
+}
+
+/* List group primary */
+.list-group-item.active {
+  background-color: #02021b !important;
+  border-color: #02021b !important;
+}
+

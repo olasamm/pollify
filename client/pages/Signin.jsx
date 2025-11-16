@@ -4,11 +4,12 @@ import './Signup.css';
 import Navbar from '../component/Navbar';
 import Footer from '../component/Footer';
 import signin from '../src/assets/signin.svg';
-import axios from 'axios';
+import api from '../src/utils/api';
 
 const Signin = () => {
   const [mail, setMail] = useState(""); 
   const [password, setPassword] = useState(""); 
+  const [accountType, setAccountType] = useState("user");
   const [message, setMessage] = useState(""); 
   const [messageType, setMessageType] = useState(""); 
   const navigate = useNavigate(); 
@@ -26,15 +27,21 @@ const Submit = async (e) => {
       return;
   }
 
-  const allData = { mail, password, };
-  const url = "https://pollify-ugm2.onrender.com/signin";
+  const allData = { mail, password, role: accountType };
 
   try {
-      const res = await axios.post(url, allData);
+      const res = await api.post('/signin', allData);
       if (res.status === 200) {
-          setMessage("User Signed In Successfully");
+          // Store token and user info
+          localStorage.setItem('token', res.data.token);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          localStorage.setItem('name', res.data.user.name);
+          localStorage.setItem('role', res.data.user.role || 'user');
+          
+          const accountType = res.data.user.role === 'admin' ? 'Admin' : 'User';
+          setMessage(`${accountType} Signed In Successfully`);
           setMessageType("success");
-          setTimeout(() => navigate("/dashboard"), 2000);
+          setTimeout(() => navigate("/dashboard"), 1500);
       }
     } catch (error) {
         if (error.response && error.response.data && error.response.data.error) {
@@ -57,6 +64,14 @@ const Submit = async (e) => {
       <div className="col-md-6 d-flex flex-column justify-content-center align-items-center bg-white text-dark p-5">
         <h3 className="mb-4">Login</h3>
 
+        {accountType === "admin" && (
+          <div className="alert alert-warning mb-3 w-100 text-center">
+            <strong>Admin Login</strong>
+            <br />
+            <small>You are logging in as an administrator</small>
+          </div>
+        )}
+
         {message && (
   <p
     className={`alert mt-3 text-center ${
@@ -73,6 +88,18 @@ const Submit = async (e) => {
           </div>
           <div className="mb-3">
             <input type="password" className="form-control up rounded-md text-dark" placeholder="Password"  value={password} onChange={e => setPassword(e.target.value)}/>
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Login As</label>
+            <select 
+              className="form-control up rounded-md text-dark border-black focus:border-black focus:ring-black" 
+              value={accountType}
+              onChange={e => setAccountType(e.target.value)}
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <small className="text-muted">Select the account type you want to login as</small>
           </div>
           <div className="d-grid">
             <button type="submit"  className="btn sign rounded-pill text-light" onClick={Submit}>

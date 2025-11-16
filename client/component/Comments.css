@@ -1,0 +1,58 @@
+.comments-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.comments-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.comments-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.comment-item {
+  transition: background-color 0.2s ease;
+}
+
+.comment-item:hover {
+  background-color: #f8f9fa;
+}
+
+.reply-item {
+  border-left: 3px solid #02021b;
+  padding-left: 10px;
+  margin-left: 10px;
+}
+
+.category-filter-radio {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.category-filter-radio .form-check-input {
+  cursor: pointer;
+}
+
+.category-filter-radio .form-check-label {
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.category-filter-radio .form-check-input:checked ~ .form-check-label {
+  background-color: #02021b;
+  color: white;
+}
+
